@@ -7,22 +7,18 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.google.protobuf.Message;
-
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import com.google.protobuf.util.JsonFormat;
+import com.google.protobuf.util.JsonFormat.Parser;
 
 public class ProtobufDeserializerFactory extends Deserializers.Base {
-  private final ExtensionRegistryWrapper extensionRegistry;
-  private final ConcurrentMap<CacheKey, ProtobufDeserializer<?>> deserializerCache;
+  private final Parser parser;
 
   public ProtobufDeserializerFactory() {
-    this(ExtensionRegistryWrapper.empty());
+    this(JsonFormat.parser());
   }
 
-  public ProtobufDeserializerFactory(ExtensionRegistryWrapper extensionRegistry) {
-    this.extensionRegistry = extensionRegistry;
-    this.deserializerCache = new ConcurrentHashMap<>();
+  public ProtobufDeserializerFactory(Parser parser) {
+    this.parser = parser;
   }
 
   @Override
@@ -41,44 +37,6 @@ public class ProtobufDeserializerFactory extends Deserializers.Base {
   @SuppressWarnings("unchecked")
   private <T extends Message> ProtobufDeserializer<T> getDeserializer(Class<T> messageType, boolean build)
           throws JsonMappingException {
-    CacheKey cacheKey = new CacheKey(messageType, build);
-
-    ProtobufDeserializer<?> deserializer = deserializerCache.get(cacheKey);
-    if (deserializer == null) {
-      ProtobufDeserializer<T> newDeserializer = new ProtobufDeserializer<>(messageType, build, extensionRegistry);
-      ProtobufDeserializer<?> previousDeserializer = deserializerCache.putIfAbsent(cacheKey, newDeserializer);
-      deserializer = previousDeserializer == null ? newDeserializer : previousDeserializer;
-    }
-
-    return (ProtobufDeserializer<T>) deserializer;
-  }
-
-  private static class CacheKey {
-    private final Class<?> messageType;
-    private final boolean build;
-
-    public CacheKey(Class<?> messageType, boolean build) {
-      this.messageType = messageType;
-      this.build = build;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      CacheKey cacheKey = (CacheKey) o;
-      return Objects.equals(build, cacheKey.build) && Objects.equals(messageType, cacheKey.messageType);
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(messageType, build);
-    }
+    return new ProtobufDeserializer<>(messageType, build, parser);
   }
 }

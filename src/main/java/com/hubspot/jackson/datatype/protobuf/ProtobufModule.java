@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
-import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.MessageOrBuilder;
+import com.google.protobuf.util.JsonFormat;
+import com.google.protobuf.util.JsonFormat.Parser;
+import com.google.protobuf.util.JsonFormat.Printer;
 
 /**
  * Module to add support for reading and writing Protobufs
@@ -14,14 +16,24 @@ import com.google.protobuf.MessageOrBuilder;
  * Register with Jackson via {@link com.fasterxml.jackson.databind.ObjectMapper#registerModule}
  */
 public class ProtobufModule extends Module {
-  private final ExtensionRegistryWrapper extensionRegistry;
+  private final Printer printer;
+  private final Parser parser;
 
   public ProtobufModule() {
-    this.extensionRegistry = ExtensionRegistryWrapper.empty();
+    this(JsonFormat.printer());
   }
 
-  public ProtobufModule(ExtensionRegistry extensionRegistry) {
-    this.extensionRegistry = ExtensionRegistryWrapper.wrap(extensionRegistry);
+  public ProtobufModule(Printer printer) {
+    this(printer, JsonFormat.parser());
+  }
+
+  public ProtobufModule(Parser parser) {
+    this(JsonFormat.printer(), parser);
+  }
+
+  public ProtobufModule(Printer printer, Parser parser) {
+    this.printer = printer;
+    this.parser = parser;
   }
 
   @Override
@@ -37,10 +49,10 @@ public class ProtobufModule extends Module {
   @Override
   public void setupModule(SetupContext context) {
     SimpleSerializers serializers = new SimpleSerializers();
-    serializers.addSerializer(new ProtobufSerializer(extensionRegistry));
+    serializers.addSerializer(new ProtobufSerializer(printer));
 
     context.addSerializers(serializers);
-    context.addDeserializers(new ProtobufDeserializerFactory(extensionRegistry));
+    context.addDeserializers(new ProtobufDeserializerFactory(parser));
     context.setMixInAnnotations(MessageOrBuilder.class, MessageOrBuilderMixin.class);
   }
 

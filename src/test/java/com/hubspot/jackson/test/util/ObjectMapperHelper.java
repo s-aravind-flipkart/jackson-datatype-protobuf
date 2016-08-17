@@ -5,10 +5,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.google.common.collect.Lists;
-import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.MessageOrBuilder;
+import com.google.protobuf.util.JsonFormat;
+import com.google.protobuf.util.JsonFormat.Printer;
 import com.hubspot.jackson.datatype.protobuf.ProtobufModule;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ObjectMapperHelper {
   private static final ObjectMapper DEFAULT = create();
-  private static final ObjectMapper UNDERSCORE = create(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+  private static final ObjectMapper UNDERSCORE = create(JsonFormat.printer().preservingProtoFieldNames());
 
   public static ObjectMapper camelCase() {
     return DEFAULT;
@@ -27,12 +27,8 @@ public class ObjectMapperHelper {
     return UNDERSCORE;
   }
 
-  public static ObjectMapper camelCase(ExtensionRegistry extensionRegistry) {
-    return create(extensionRegistry);
-  }
-
-  public static ObjectMapper underscore(ExtensionRegistry extensionRegistry) {
-    return create(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES, extensionRegistry);
+  public static ObjectMapper custom(Printer printer) {
+    return create(printer);
   }
 
   public static JsonNode toTree(ObjectMapper mapper, Object value) {
@@ -66,19 +62,11 @@ public class ObjectMapperHelper {
     }
   }
 
-  private static ObjectMapper create(PropertyNamingStrategy namingStrategy, ExtensionRegistry extensionRegistry) {
-    return create(extensionRegistry).setPropertyNamingStrategy(namingStrategy);
-  }
-
-  private static ObjectMapper create(ExtensionRegistry extensionRegistry) {
-    return new ObjectMapper().registerModule(new ProtobufModule(extensionRegistry));
-  }
-
-  private static ObjectMapper create(PropertyNamingStrategy namingStrategy) {
-    return create().setPropertyNamingStrategy(namingStrategy);
-  }
-
   private static ObjectMapper create() {
-    return new ObjectMapper().registerModule(new ProtobufModule());
+    return create(JsonFormat.printer());
+  }
+
+  private static ObjectMapper create(Printer printer) {
+    return new ObjectMapper().registerModule(new ProtobufModule(printer));
   }
 }
