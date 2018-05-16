@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.google.protobuf.Descriptors.FieldDescriptor;
-import com.google.protobuf.ListValue;
+import com.github.os72.protobuf351.Descriptors.FieldDescriptor;
+import com.github.os72.protobuf351.ListValue;
 import com.hubspot.jackson.datatype.protobuf.ProtobufDeserializer;
 
 public class ListValueDeserializer extends ProtobufDeserializer<ListValue, ListValue.Builder> {

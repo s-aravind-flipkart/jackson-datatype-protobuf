@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.google.protobuf.Descriptors.FieldDescriptor;
-import com.google.protobuf.MessageOrBuilder;
+import com.github.os72.protobuf351.Descriptors.FieldDescriptor;
+import com.github.os72.protobuf351.MessageOrBuilder;
 import com.hubspot.jackson.datatype.protobuf.ProtobufSerializer;
 
 public class WrappedPrimitiveSerializer<T extends MessageOrBuilder> extends ProtobufSerializer<T> {

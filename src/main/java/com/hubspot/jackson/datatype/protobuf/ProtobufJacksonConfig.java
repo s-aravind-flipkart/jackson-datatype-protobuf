@@ -1,6 +1,6 @@
 package com.hubspot.jackson.datatype.protobuf;
 
-import com.google.protobuf.ExtensionRegistry;
+import com.github.os72.protobuf351.ExtensionRegistry;
 
 public class ProtobufJacksonConfig {
   private final ExtensionRegistryWrapper extensionRegistry;

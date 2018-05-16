@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.google.protobuf.Descriptors.FieldDescriptor;
-import com.google.protobuf.Struct;
+import com.github.os72.protobuf351.Descriptors.FieldDescriptor;
+import com.github.os72.protobuf351.Struct;
 import com.hubspot.jackson.datatype.protobuf.ProtobufSerializer;
 
 public class StructSerializer extends ProtobufSerializer<Struct> {

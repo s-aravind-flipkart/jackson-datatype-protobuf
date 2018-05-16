@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.google.protobuf.Descriptors.FieldDescriptor;
-import com.google.protobuf.NullValue;
-import com.google.protobuf.Value;
+import com.github.os72.protobuf351.Descriptors.FieldDescriptor;
+import com.github.os72.protobuf351.NullValue;
+import com.github.os72.protobuf351.Value;
 import com.hubspot.jackson.datatype.protobuf.ProtobufDeserializer;
 
 public class ValueDeserializer extends ProtobufDeserializer<Value, Value.Builder> {

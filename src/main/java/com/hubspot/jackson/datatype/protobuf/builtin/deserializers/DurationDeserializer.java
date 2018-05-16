@@ -7,8 +7,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.google.protobuf.Duration;
-import com.google.protobuf.util.Durations;
+import com.github.os72.protobuf351.Duration;
+import com.github.os72.protobuf351.util.Durations;
 
 public class DurationDeserializer extends StdDeserializer<Duration> {
 
