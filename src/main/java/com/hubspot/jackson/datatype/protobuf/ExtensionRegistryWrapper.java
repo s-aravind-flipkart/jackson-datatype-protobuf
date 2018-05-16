@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.protobuf.Descriptors.Descriptor;
-import com.google.protobuf.ExtensionRegistry;
-import com.google.protobuf.ExtensionRegistry.ExtensionInfo;
+import com.github.os72.protobuf351.Descriptors.Descriptor;
+import com.github.os72.protobuf351.ExtensionRegistry;
+import com.github.os72.protobuf351.ExtensionRegistry.ExtensionInfo;
 
 public class ExtensionRegistryWrapper {
   private final Function<Descriptor, Set<ExtensionInfo>> extensionFunction;

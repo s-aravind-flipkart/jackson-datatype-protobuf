@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.google.protobuf.Descriptors.FieldDescriptor;
-import com.google.protobuf.Message;
-import com.google.protobuf.Message.Builder;
+import com.github.os72.protobuf351.Descriptors.FieldDescriptor;
+import com.github.os72.protobuf351.Message;
+import com.github.os72.protobuf351.Message.Builder;
 import com.hubspot.jackson.datatype.protobuf.ProtobufDeserializer;
 
 public class WrappedPrimitiveDeserializer<T extends Message, V extends Builder> extends ProtobufDeserializer<T, V> {

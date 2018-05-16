@@ -7,7 +7,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.google.protobuf.Message;
+import com.github.os72.protobuf351.Message;
+
 
 public abstract class BuildingDeserializer<T extends Message, V extends Message.Builder> extends StdDeserializer<T> {
 

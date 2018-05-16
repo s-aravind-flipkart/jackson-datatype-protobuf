@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.google.protobuf.Descriptors.FieldDescriptor;
-import com.google.protobuf.Value;
+import com.github.os72.protobuf351.Descriptors.FieldDescriptor;
+import com.github.os72.protobuf351.Value;
 import com.hubspot.jackson.datatype.protobuf.ProtobufSerializer;
 
 public class ValueSerializer extends ProtobufSerializer<Value> {

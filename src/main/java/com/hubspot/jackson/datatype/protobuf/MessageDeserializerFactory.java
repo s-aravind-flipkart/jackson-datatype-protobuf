@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.Deserializers;
-import com.google.protobuf.Message;
+import com.github.os72.protobuf351.Message;
 import com.hubspot.jackson.datatype.protobuf.builtin.deserializers.MessageDeserializer;
 
 public class MessageDeserializerFactory extends Deserializers.Base {

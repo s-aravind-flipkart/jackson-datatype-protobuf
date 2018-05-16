@@ -13,13 +13,13 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.google.protobuf.ByteString;
-import com.google.protobuf.Descriptors.Descriptor;
-import com.google.protobuf.Descriptors.EnumValueDescriptor;
-import com.google.protobuf.Descriptors.FieldDescriptor;
-import com.google.protobuf.Message;
-import com.google.protobuf.MessageOrBuilder;
-import com.google.protobuf.NullValue;
+import com.github.os72.protobuf351.ByteString;
+import com.github.os72.protobuf351.Descriptors.Descriptor;
+import com.github.os72.protobuf351.Descriptors.EnumValueDescriptor;
+import com.github.os72.protobuf351.Descriptors.FieldDescriptor;
+import com.github.os72.protobuf351.Message;
+import com.github.os72.protobuf351.MessageOrBuilder;
+import com.github.os72.protobuf351.NullValue;
 
 public abstract class ProtobufSerializer<T extends MessageOrBuilder> extends StdSerializer<T> {
   private static final String NULL_VALUE_FULL_NAME = NullValue.getDescriptor().getFullName();
